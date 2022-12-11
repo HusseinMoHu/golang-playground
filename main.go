@@ -8,10 +8,10 @@ import (
 
 func main() {
 	const conferenceName = "Go Conference"
-	const conferenceTickets = 50
-	remainingTickets := 50
+	const conferenceTickets uint = 50
+	var remainingTickets uint = 50
 
-	fmt.Printf("Welcome to %v booking system\n", color.BlueString(conferenceName))
+	fmt.Printf("-- Welcome to %v booking system --\n", color.BlueString(conferenceName))
 	fmt.Printf(
 		"We have total of %v tickets and %v are still available\n",
 		color.BlueString(fmt.Sprint(conferenceTickets)),
@@ -20,9 +20,37 @@ func main() {
 
 	color.New(color.Bold, color.FgGreen).Println("Get your tickets here to attend")
 
-	var userName string
-	// ask for username
+	var firstName string
+	var lastName string
+	var email string
+	var userTickets uint
 
-	userName = "Tom"
-	fmt.Printf(userName)
+	fmt.Print("Please enter your first name: ")
+	fmt.Scan(&firstName)
+
+	fmt.Print("Please enter your last name: ")
+	fmt.Scan(&lastName)
+
+	fmt.Print("Please enter your email: ")
+	fmt.Scan(&email)
+
+	fmt.Print("Please enter number of tickets: ")
+	fmt.Scan(&userTickets)
+
+	if userTickets > remainingTickets {
+		color.Red("Sorry, we don't have enough tickets")
+		return
+	}
+
+	remainingTickets -= userTickets
+
+	fmt.Printf(
+		"Hi %v %v, you have successfully booked %v tickets. %v tickets are still available\n",
+		color.BlueString(firstName),
+		color.BlueString(lastName),
+		color.GreenString(fmt.Sprint(userTickets)),
+		color.GreenString(fmt.Sprint(remainingTickets)),
+	)
+
+	color.Green("Thank you for booking with us, You will receive an email shortly at %v\n", color.CyanString(email))
 }
