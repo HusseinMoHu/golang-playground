@@ -46,11 +46,6 @@ func main() {
 	remainingTickets -= userTickets
 	bookings = append(bookings, firstName+" "+lastName)
 
-	fmt.Printf("The whole array: %v\n", bookings)
-	fmt.Printf("The first element %v\n", bookings[0])
-	fmt.Printf("Array type: %T\n", bookings)
-	fmt.Printf("Array length: %v\n", len(bookings))
-
 	fmt.Printf(
 		"Hi %v %v, you have successfully booked %v tickets. %v tickets are still available\n",
 		color.BlueString(firstName),
@@ -60,5 +55,5 @@ func main() {
 	)
 
 	color.Green("Thank you for booking with us, You will receive an email shortly at %v\n", color.CyanString(email))
-
+	color.Blue("There are all our bookings: %v\n", bookings)
 }
