@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/fatih/color"
 )
@@ -21,39 +22,49 @@ func main() {
 
 	color.New(color.Bold, color.FgGreen).Println("Get your tickets here to attend")
 
-	var firstName string
-	var lastName string
-	var email string
-	var userTickets uint
+	for remainingTickets > 0 {
+		var firstName string
+		var lastName string
+		var email string
+		var userTickets uint
 
-	fmt.Print("Please enter your first name: ")
-	fmt.Scan(&firstName)
+		fmt.Print("Please enter your first name: ")
+		fmt.Scan(&firstName)
 
-	fmt.Print("Please enter your last name: ")
-	fmt.Scan(&lastName)
+		fmt.Print("Please enter your last name: ")
+		fmt.Scan(&lastName)
 
-	fmt.Print("Please enter your email: ")
-	fmt.Scan(&email)
+		fmt.Print("Please enter your email: ")
+		fmt.Scan(&email)
 
-	fmt.Print("Please enter number of tickets: ")
-	fmt.Scan(&userTickets)
+		fmt.Print("Please enter number of tickets: ")
+		fmt.Scan(&userTickets)
 
-	if userTickets > remainingTickets {
-		color.Red("Sorry, we don't have enough tickets")
-		return
+		if userTickets > remainingTickets {
+			color.Red("Sorry, we don't have enough tickets")
+			return
+		}
+
+		remainingTickets -= userTickets
+		bookings = append(bookings, firstName+" "+lastName)
+
+		fmt.Printf(
+			"Hi %v %v, you have successfully booked %v tickets. %v tickets are still available\n",
+			color.BlueString(firstName),
+			color.BlueString(lastName),
+			color.GreenString(fmt.Sprint(userTickets)),
+			color.GreenString(fmt.Sprint(remainingTickets)),
+		)
+
+		color.Green("Thank you for booking with us, You will receive an email shortly at %v\n", color.CyanString(email))
+
+		firstNames := []string{}
+		for _, booking := range bookings {
+			names := strings.Fields(booking)
+			firstNames = append(firstNames, names[0])
+		}
+
+		color.Blue("Here are all of our bookings %v", firstNames)
 	}
 
-	remainingTickets -= userTickets
-	bookings = append(bookings, firstName+" "+lastName)
-
-	fmt.Printf(
-		"Hi %v %v, you have successfully booked %v tickets. %v tickets are still available\n",
-		color.BlueString(firstName),
-		color.BlueString(lastName),
-		color.GreenString(fmt.Sprint(userTickets)),
-		color.GreenString(fmt.Sprint(remainingTickets)),
-	)
-
-	color.Green("Thank you for booking with us, You will receive an email shortly at %v\n", color.CyanString(email))
-	color.Blue("There are all our bookings: %v\n", bookings)
 }
