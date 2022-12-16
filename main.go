@@ -40,6 +40,26 @@ func main() {
 		fmt.Print("Please enter number of tickets: ")
 		fmt.Scan(&userTickets)
 
+		// Validate user inputs
+		isValidName := len(firstName) > 2 && len(lastName) > 2
+		isValidEmail := strings.Contains(email, "@")
+		isValidTickets := userTickets > 0 && userTickets <= 5
+
+		if !isValidName {
+			color.Red("Please enter a valid name")
+			continue
+		}
+
+		if !isValidEmail {
+			color.Red("Please enter a valid email")
+			continue
+		}
+
+		if !isValidTickets {
+			color.Red("Please enter a valid number of tickets")
+			continue
+		}
+
 		if userTickets > remainingTickets {
 			color.Red("We only have %v tickets, so you can't book %v tickets", remainingTickets, userTickets)
 			continue
