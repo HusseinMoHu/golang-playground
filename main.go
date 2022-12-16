@@ -42,7 +42,7 @@ func main() {
 
 		// Validate user inputs
 		isValidName := len(firstName) > 2 && len(lastName) > 2
-		isValidEmail := strings.Contains(email, "@")
+		isValidEmail := strings.Contains(email, "@") && strings.Contains(email, ".")
 		isValidTickets := userTickets > 0 && userTickets <= 5
 
 		if !isValidName {
