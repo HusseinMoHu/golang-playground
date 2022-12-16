@@ -71,17 +71,10 @@ func main() {
 
 		color.Green("Thank you for booking with us, You will receive an email shortly at %v\n", color.CyanString(email))
 
-		firstNames := []string{}
-		for _, booking := range bookings {
-			names := strings.Fields(booking)
-			firstNames = append(firstNames, names[0])
-		}
-
-		color.Blue("Here are all of our bookings %v", firstNames)
+		printBookingsFirstNames(bookings)
 	}
 
-	color.Green("All tickets are booked :)")
-
+	color.Green("All tickets are booked")
 }
 
 func greetingUser(confName string, confTickets uint, remainingTickets uint) {
@@ -93,4 +86,13 @@ func greetingUser(confName string, confTickets uint, remainingTickets uint) {
 	)
 
 	color.New(color.Bold, color.FgGreen).Println("Get your tickets here to attend")
+}
+
+func printBookingsFirstNames(bookings []string) {
+	firstNames := []string{}
+	for _, booking := range bookings {
+		names := strings.Fields(booking)
+		firstNames = append(firstNames, names[0])
+	}
+	color.Blue("Here are all of our bookings %v", firstNames)
 }
