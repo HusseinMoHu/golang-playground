@@ -13,14 +13,7 @@ func main() {
 	var remainingTickets uint = 50
 	var bookings []string
 
-	fmt.Printf("-- Welcome to %v booking system --\n", color.BlueString(conferenceName))
-	fmt.Printf(
-		"We have total of %v tickets and %v are still available\n",
-		color.BlueString(fmt.Sprint(conferenceTickets)),
-		color.GreenString(fmt.Sprint(remainingTickets)),
-	)
-
-	color.New(color.Bold, color.FgGreen).Println("Get your tickets here to attend")
+	greetingUser(conferenceName, conferenceTickets, remainingTickets)
 
 	for remainingTickets > 0 {
 		var firstName string
@@ -89,4 +82,15 @@ func main() {
 
 	color.Green("All tickets are booked :)")
 
+}
+
+func greetingUser(confName string, confTickets uint, remainingTickets uint) {
+	fmt.Printf("-- Welcome to %v booking system --\n", color.BlueString(confName))
+	fmt.Printf(
+		"We have total of %v tickets and %v are still available\n",
+		color.BlueString(fmt.Sprint(confTickets)),
+		color.GreenString(fmt.Sprint(remainingTickets)),
+	)
+
+	color.New(color.Bold, color.FgGreen).Println("Get your tickets here to attend")
 }
