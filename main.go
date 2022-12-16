@@ -42,7 +42,7 @@ func main() {
 
 		if userTickets > remainingTickets {
 			color.Red("Sorry, we don't have enough tickets")
-			return
+			break
 		}
 
 		remainingTickets -= userTickets
