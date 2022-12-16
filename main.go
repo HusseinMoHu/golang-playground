@@ -41,8 +41,8 @@ func main() {
 		fmt.Scan(&userTickets)
 
 		if userTickets > remainingTickets {
-			color.Red("Sorry, we don't have enough tickets")
-			break
+			color.Red("We only have %v tickets, so you can't book %v tickets", remainingTickets, userTickets)
+			continue
 		}
 
 		remainingTickets -= userTickets
