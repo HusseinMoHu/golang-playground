@@ -67,4 +67,6 @@ func main() {
 		color.Blue("Here are all of our bookings %v", firstNames)
 	}
 
+	color.Green("All tickets are booked :)")
+
 }
