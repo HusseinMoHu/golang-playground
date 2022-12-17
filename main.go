@@ -17,7 +17,6 @@ func main() {
 
 	for remainingTickets > 0 {
 		firstName, lastName, email, userTickets := getUserInputs()
-
 		isValidName, isValidEmail, isValidTickets := validateUserInputs(firstName, lastName, email, userTickets)
 
 		if !isValidName {
