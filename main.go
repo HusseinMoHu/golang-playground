@@ -33,10 +33,7 @@ func main() {
 		fmt.Print("Please enter number of tickets: ")
 		fmt.Scan(&userTickets)
 
-		// Validate user inputs
-		isValidName := len(firstName) > 2 && len(lastName) > 2
-		isValidEmail := strings.Contains(email, "@") && strings.Contains(email, ".")
-		isValidTickets := userTickets > 0 && userTickets <= 5
+		isValidName, isValidEmail, isValidTickets := validateUserInputs(firstName, lastName, email, userTickets)
 
 		if !isValidName {
 			color.Red("Please enter a valid name")
@@ -71,7 +68,8 @@ func main() {
 
 		color.Green("Thank you for booking with us, You will receive an email shortly at %v\n", color.CyanString(email))
 
-		printBookingsFirstNames(bookings)
+		firstNames := getBookingsFirstNames(bookings)
+		color.Blue("Here are all of our bookings %v", firstNames)
 	}
 
 	color.Green("All tickets are booked")
@@ -88,11 +86,19 @@ func greetingUser(confName string, confTickets uint, remainingTickets uint) {
 	color.New(color.Bold, color.FgGreen).Println("Get your tickets here to attend")
 }
 
-func printBookingsFirstNames(bookings []string) {
+func getBookingsFirstNames(bookings []string) []string {
 	firstNames := []string{}
 	for _, booking := range bookings {
 		names := strings.Fields(booking)
 		firstNames = append(firstNames, names[0])
 	}
-	color.Blue("Here are all of our bookings %v", firstNames)
+	return firstNames
+}
+
+func validateUserInputs(firstName string, lastName string, email string, userTickets uint) (bool, bool, bool) {
+	isValidName := len(firstName) > 2 && len(lastName) > 2
+	isValidEmail := strings.Contains(email, "@") && strings.Contains(email, ".")
+	isValidTickets := userTickets > 0 && userTickets <= 5
+
+	return isValidName, isValidEmail, isValidTickets
 }
