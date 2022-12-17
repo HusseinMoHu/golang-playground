@@ -7,13 +7,14 @@ import (
 	"github.com/fatih/color"
 )
 
-func main() {
-	const conferenceName = "Go Conference"
-	const conferenceTickets uint = 50
-	var remainingTickets uint = 50
-	var bookings []string
+const conferenceName = "Go Conference"
+const conferenceTickets uint = 50
 
-	greetingUser(conferenceName, conferenceTickets, remainingTickets)
+var remainingTickets uint = 50
+var bookings []string
+
+func main() {
+	greetingUser()
 
 	for remainingTickets > 0 {
 		firstName, lastName, email, userTickets := getUserInputs()
@@ -39,27 +40,27 @@ func main() {
 			continue
 		}
 
-		bookingTickets(&remainingTickets, userTickets, &bookings, firstName, lastName, email)
+		bookingTickets(userTickets, firstName, lastName, email)
 
-		firstNames := getBookingsFirstNames(bookings)
+		firstNames := getBookingsFirstNames()
 		color.Blue("Here are all of our bookings %v", firstNames)
 	}
 
 	color.Green("All tickets are booked")
 }
 
-func greetingUser(confName string, confTickets uint, remainingTickets uint) {
-	fmt.Printf("-- Welcome to %v booking system --\n", color.BlueString(confName))
+func greetingUser() {
+	fmt.Printf("-- Welcome to %v booking system --\n", color.BlueString(conferenceName))
 	fmt.Printf(
 		"We have total of %v tickets and %v are still available\n",
-		color.BlueString(fmt.Sprint(confTickets)),
+		color.BlueString(fmt.Sprint(conferenceTickets)),
 		color.GreenString(fmt.Sprint(remainingTickets)),
 	)
 
 	color.New(color.Bold, color.FgGreen).Println("Get your tickets here to attend")
 }
 
-func getBookingsFirstNames(bookings []string) []string {
+func getBookingsFirstNames() []string {
 	firstNames := []string{}
 	for _, booking := range bookings {
 		names := strings.Fields(booking)
@@ -97,16 +98,16 @@ func getUserInputs() (string, string, string, uint) {
 	return firstName, lastName, email, userTickets
 }
 
-func bookingTickets(remainingTickets *uint, userTickets uint, bookings *[]string, firstName string, lastName string, email string) {
-	*remainingTickets -= userTickets
-	*bookings = append(*bookings, firstName+" "+lastName)
+func bookingTickets(userTickets uint, firstName string, lastName string, email string) {
+	remainingTickets -= userTickets
+	bookings = append(bookings, firstName+" "+lastName)
 
 	fmt.Printf(
 		"Hi %v %v, you have successfully booked %v tickets. %v tickets are still available\n",
 		color.BlueString(firstName),
 		color.BlueString(lastName),
 		color.GreenString(fmt.Sprint(userTickets)),
-		color.GreenString(fmt.Sprint(*remainingTickets)),
+		color.GreenString(fmt.Sprint(remainingTickets)),
 	)
 
 	color.Green("Thank you for booking with us, You will receive an email shortly at %v\n", color.CyanString(email))
