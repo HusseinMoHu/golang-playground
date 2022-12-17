@@ -1,6 +1,7 @@
 package main
 
 import (
+	"booking-app/helper"
 	"fmt"
 	"strings"
 
@@ -18,7 +19,7 @@ func main() {
 
 	for remainingTickets > 0 {
 		firstName, lastName, email, userTickets := getUserInputs()
-		isValidName, isValidEmail, isValidTickets := validateUserInputs(firstName, lastName, email, userTickets)
+		isValidName, isValidEmail, isValidTickets := helper.ValidateUserInputs(firstName, lastName, email, userTickets)
 
 		if !isValidName {
 			color.Red("Please enter a valid name")
